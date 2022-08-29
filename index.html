@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Thingy:52 Temp & Hum Logger</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <h3>Thingy:52 Temperature & Humidity Logger</h3>
+    <button id="connectBtn">Connect</button>
+    <button id="stopBtn">Stop</button>
+    <button id="saveBtn">Save</button><p></p>
+    <button id="resetBtn">Reset</button>
+    <a style="display:none;" id="downloader" href="#"></a>
+    <p></p>
+    <div id="DateB">開始時刻 : </div>
+    <div id="DateNow">取得時刻 : </div>
+    <div id="temperature">温度 : </div>
+    <div id="humidity">湿度 : </div>
+    <div id="counter">取得回数 :</div>
+    <div id="battery">Battery残量 : </div>
+
+    <script type="module">
+const scan = async () => {
+  try {
+    const reader = new NDEFReader()
+    await reader.scan()
+
+    // Scanは起動しているが、NFCタグからデータが読み込めなかった
+    reader.addEventListener('error', (event) => {
+      console.log(error)
+    })
+
+    // データを読み込んだ
+    reader.addEventListener('reading', ({ serialNumber, message }) => {
+      const record = message.records[0]
+      const { data, recordType } = record
+      // recordTypeごとにdecode処理を実行する
+    })
+  } catch (error) {
+    // Scan起動失敗
+    console.error(error)
+  }
+}
+    </script>
+  </body>
+</html>
